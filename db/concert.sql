@@ -4,7 +4,7 @@ DROP TABLE artists;
 
 CREATE TABLE venues(
 id SERIAL4 PRIMARY KEY, 
-capacity INT2,
+capacity INT4,
 type VARCHAR(255),
 location VARCHAR(255)
 );
