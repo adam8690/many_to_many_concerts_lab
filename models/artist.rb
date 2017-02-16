@@ -23,6 +23,15 @@ sql = "DELETE FROM artists;"
 SqlRunner.run(sql)
 end
 
+def venues
+  sql = "SELECT venues.* FROM venues
+        INNER JOIN gigs ON gigs.venue_id = venues.id WHERE artist_id = #{@id};"
+  venues = SqlRunner.run(sql)
+  result = venues.map { |venue| Venue.new( venue ) }
+  return result 
+  
+end
+
 
 
 

@@ -9,12 +9,12 @@ attr_reader :id
     @id = options['id']
     @capacity = options['capacity']
     @type = options['type']
-    @location = ['location']
+    @location = options['location']
   end
 
   def save()
-    sql = "INSERT INTO venue (capacity, location, type) VALUES (#{@capacity}, '#{@location}', '#{@type}') RETURNING id "
-    artist = SqlRunner.run(sql).first
+    sql = "INSERT INTO venues (capacity, location, type) VALUES (#{@capacity}, '#{@location}', '#{@type}') RETURNING id "
+    venue = SqlRunner.run(sql).first
     @id = venue['id'].to_i 
 
   end
@@ -23,6 +23,17 @@ attr_reader :id
   sql = "DELETE FROM venues;"
   SqlRunner.run(sql)
   end
+
+def artists
+  sql = "SELECT artists.* FROM artists
+  INNER JOIN gigs on gigs.artist_id = artists.id WHERE venue_id = #{id}"
+  artists = SqlRunner.run(sql)
+  return artists.map {|artist| Artist.new(artist)}
+end
+
+
+
+
 
 end 
 
