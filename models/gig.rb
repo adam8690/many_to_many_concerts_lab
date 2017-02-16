@@ -9,6 +9,12 @@ def initialize( options )
   @date = options['date']
 end
 
+  def save()
+    sql = "INSERT INTO gigs (venue_id, artist_id, date) VALUES (#{@venue_id}, #{@artist_id},'#{date}') RETURNING id "
+    gig = SqlRunner.new(sql).first
+    @id = gig['id'].to_i 
+
+  end
 
 
 
